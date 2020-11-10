@@ -8,7 +8,6 @@ import {
 } from "./actionTypes";
 
 export const loginSignup = () => {
-	console.log("Loading....")
 	return {
 		type: LOGINSIGNUP,
 	};
@@ -35,8 +34,9 @@ export const fail = (err) => {
 
 
 export const loginAdmin = (dataToSubmit) => {
-	loginSignup()
+	
 	return (dispatch) => {
+		dispatch(loginSignup())
 		axios
 			.post(`http://localhost:5001/api/admin/login`, dataToSubmit)
 			.then((response) => {
@@ -51,8 +51,8 @@ export const loginAdmin = (dataToSubmit) => {
 };
 
 export const signupAdmin = (dataToSubmit) => {
-    loginSignup()
 	return (dispatch) => {
+		dispatch(loginSignup())
 		axios
 			.post(`http://localhost:5001/api/admin/register`, dataToSubmit)
 			.then((response) => {

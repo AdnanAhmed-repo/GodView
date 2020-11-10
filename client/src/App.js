@@ -6,6 +6,8 @@ import Dashboard from './views/Dashboard'
 import Signup from './views/Signup'
 import ProtectedRoute from './utils/ProtectedRoutes'
 import './App.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 function App() {

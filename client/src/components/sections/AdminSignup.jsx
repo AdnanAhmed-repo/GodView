@@ -1,16 +1,21 @@
 import React, {useState, useEffect} from 'react'
 import { signupAdmin } from "../../redux/actions/adminActions"
 import {connect} from 'react-redux'
+import CircularProgress from '@material-ui/core/CircularProgress';
+
+
 
 function AdminSignup(props) {
 
     const [input, setInput] = useState({ name:"", email:"", password:"",})
+    const [loading, setLoading] = useState(true)
 
     const handleInput= (e)=>{
         setInput({...input, [e.target.name]: e.target.value})
     }
 
     useEffect(()=>{
+        setLoading(props.user.admin.loading)
         console.log("prooops---", props.user)
         if(localStorage.getItem('user')){
             props.props.history.push('/admin-dashboard')
@@ -28,7 +33,7 @@ function AdminSignup(props) {
                 <input onChange={handleInput} type="email" name="email" placeholder="Enter your email"/>
                 <label htmlFor="password">Admin Password</label>
                 <input onChange={handleInput} type="password" name="password" placeholder="Enter your password"/>
-                <button onClick={()=>props.signup(input)}>Signup</button>
+                <button onClick={()=>props.signup(input)}>{loading?<CircularProgress style={{color: "white"}} thickness={6} size={12} color="secondary" />:"Signup"}</button>
             </div>
             
         </div>  

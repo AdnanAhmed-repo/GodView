@@ -1,0 +1,43 @@
+.navbar_container {
+	padding: 5px 0;
+	position: fixed;
+	overflow: hidden;
+	top: 0;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: black;
+	height: 60px;
+}
+.logo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.nav_items {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.logo > img {
+	margin: 0 20px;
+	height: 50px;
+}
+.logo > h1 {
+	font-weight: 500;
+	font-size: 28px;
+	color: white;
+}
+.nav_items p {
+	color: wheat;
+	font-weight: 600;
+	padding: 0 20px;
+}
+.nav_items p:hover {
+	color: white;
+}
+.nav_item {
+	text-decoration: none;
+}

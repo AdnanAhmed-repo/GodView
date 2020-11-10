@@ -1,0 +1,9 @@
+.admin_dashboard {
+	height: calc(100vh - 60px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 60px;
+	color: rgb(221, 221, 221);
+	background-color: rgb(22, 22, 22);
+}

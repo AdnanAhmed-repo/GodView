@@ -7,13 +7,13 @@ import {
 	
 } from "./actionTypes";
 
-export const loginSignup = () => {
+const loginSignup = () => {
 	return {
 		type: LOGINSIGNUP,
 	};
 };
 
-export const success = (user) => {
+const success = (user) => {
 	console.log("Success")
 	localStorage.setItem('user', JSON.stringify(user))
 	const userData = JSON.parse(localStorage.getItem('user'))
@@ -23,7 +23,7 @@ export const success = (user) => {
 	};
 };
 
-export const fail = (err) => {
+const fail = (err) => {
 	console.log("Failed")
 	return {
 		type: FAIL,

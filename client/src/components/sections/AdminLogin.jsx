@@ -16,8 +16,6 @@ function AdminLogin(props) {
 
     useEffect(()=>{
         setLoading(props.user.admin.loading)
-        console.log('loadinggggg',loading)
-        console.log("prooops---", props.user)
         if(localStorage.getItem('user')){
             props.props.history.push('/admin-dashboard')
         }

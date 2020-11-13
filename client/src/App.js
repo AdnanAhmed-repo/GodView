@@ -4,6 +4,7 @@ import { withRouter, Route, Switch, Redirect} from "react-router-dom"
 import Login from './views/Login'
 import Dashboard from './views/Dashboard'
 import Signup from './views/Signup'
+import CompanyDetails from './views/CompanyDetails'
 import ProtectedRoute from './utils/ProtectedRoutes'
 import './App.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,6 +17,7 @@ function App() {
       <Navigation/>
       <Switch>
         <ProtectedRoute exact path="/admin-dashboard" component={Dashboard} />
+        <ProtectedRoute exact path="/admin-dashboard/:id" component={CompanyDetails} />
         <Route exact path="/admin-login" component={Login} />
         <Route exact path="/admin-signup" component={Signup} />
         <Route exact path="/" component={Login} />

@@ -13,7 +13,6 @@ const Navigation=(props)=> {
         props.logout()
     }
     useEffect(()=>{
-        console.log('userrrr', props.user)
         if(localStorage.getItem('user')){
             setAdmin(true)
         } else {

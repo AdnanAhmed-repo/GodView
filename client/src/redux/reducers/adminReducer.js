@@ -9,7 +9,6 @@ import {
 const adminReducer = (state = {loading:"", success:"", error:""}, action) => {
 	switch (action.type) {
 		case LOGINSIGNUP:
-            console.log('wait loadingggg....')
 			return { ...state, loading: true };
 		case SUCCESS:
             return { ...state, success: action.payload, loading: false, error:"" };

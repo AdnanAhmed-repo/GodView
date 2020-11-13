@@ -16,6 +16,7 @@ app.use(express.urlencoded({extended:true}))
 
 //Define routes
 app.use("/api/admin", require("./routes/api/admin"));
+app.use("/api/admin-dashboard", require("./routes/api/dashboard"));
 
 //Serve static assets in production
 if (process.env.NODE_ENV === "production") {

@@ -1,9 +1,54 @@
 .admin_dashboard {
-	height: calc(100vh - 60px);
+	padding: 50px 0;
+	min-height: calc(100vh - 60px);
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin-top: 60px;
+	margin-top: 70px;
 	color: rgb(221, 221, 221);
 	background-color: rgb(22, 22, 22);
+}
+.admin_dashboard > h1 {
+	font-weight: 500;
+}
+
+.company_tab {
+	margin-bottom: 2px;
+	padding: 3px 8px;
+	height: 40px;
+	display: flex;
+	border-radius: 2px;
+	justify-content: space-between;
+	align-items: center;
+	border: 1px solid rgba(106, 200, 255, 0.24);
+	background-color: rgba(9, 185, 255, 0.103);
+	width: 700px;
+}
+.company_tab:hover {
+	border: 1px solid rgba(106, 200, 255, 0.404);
+	background-color: rgba(9, 185, 255, 0.24);
+}
+.bname {
+	margin-left: 10px;
+	font-size: 18px;
+	font-weight: 500;
+}
+.bname_details {
+	display: flex;
+	height: 30px;
+	width: 30px;
+	background-color: transparent;
+	justify-content: center;
+	align-items: center;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+}
+.link_details {
+	text-decoration: none;
+	color: rgba(46, 213, 255, 0.774);
+}
+.bname_details:hover {
+	background-color: rgba(9, 185, 255, 0.411);
 }

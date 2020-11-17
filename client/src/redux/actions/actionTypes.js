@@ -8,3 +8,6 @@ export const FAIL = "FAIL";
 export const FETCH_FAIL = "FETCH_FAIL";
 export const COMPANY_FETCH_FAIL = "CONPANY_FETCH_FAIL";
 export const LOGOUT = "LOGOUT";
+export const VULNERABILITIES = "VULNERABILITIES";
+export const ADDING_VUL = "ADDING_VUL";
+export const SWITCHING_STATUS = "SWITCHING_STATUS";

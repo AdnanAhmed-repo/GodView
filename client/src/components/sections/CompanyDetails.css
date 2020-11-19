@@ -22,6 +22,7 @@
 
 .company_name > h2,
 .company_score > h2 {
+	padding: 0;
 	margin: 0;
 }
 .company_name > p {
@@ -48,6 +49,22 @@
 	width: 100px;
 	height: 50px;
 	background-color: rgba(221, 0, 0, 0.712);
+}
+.company_score {
+	padding: 0;
+	width: 200px;
+}
+.company_score input {
+	position: absolute;
+	margin: 3px 5px;
+	padding: 3px 5px;
+	outline: none;
+	font-size: 20px;
+	border-radius: 4px;
+	background-color: rgb(248, 248, 248);
+	border: 1px solid rgba(53, 53, 53, 0.432);
+	font-weight: 600;
+	width: 40px;
 }
 .company_score > button {
 	border: none;

@@ -5,7 +5,8 @@ import {
     COMPANY_FETCH_FAIL,
     VULNERABILITIES,
     ADDING_VUL,
-    SWITCHING_STATUS
+    SWITCHING_STATUS,
+    EDITING_SCORE
 	
 } from "./actionTypes";
 
@@ -94,16 +95,36 @@ const switchingStatus=(id)=>{
     }
 }
 
-export const switchStatus = (id) =>{
+export const switchStatus = (id, userId) =>{
     return(dispatch)=>{
         dispatch(switchingStatus(id))
-        axios.post(`http://localhost:5001/api/admin-dashboard/switchstatus/${id}`)
+        axios.post(`http://localhost:5001/api/admin-dashboard/switchstatus/${userId}/${id}`)
         .then(response=>{
             console.log("status switched-----", response)
             dispatch(switchingStatus(id))
         }).catch(err=>{
             console.log("Error in switcihng status-----", err)
             dispatch(switchingStatus(id))
+        })
+    }
+}
+
+const editingScore=()=>{
+    return{
+        type: EDITING_SCORE,
+    }
+}
+
+export const editScore = (data) =>{
+    return(dispatch)=>{
+        dispatch(editingScore())
+        axios.post(`http://localhost:5001/api/admin-dashboard/editscore`, data)
+        .then(response=>{
+            console.log("Score Edited-----", response)
+            dispatch(editingScore())
+        }).catch(err=>{
+            console.log("Error in editing score-----", err)
+            dispatch(editingScore())
         })
     }
 }

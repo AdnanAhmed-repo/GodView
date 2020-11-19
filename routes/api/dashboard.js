@@ -81,21 +81,35 @@ router.post("/add-vulnerability", async (req, res) => {
 	}
 });
 
-router.post("/switchstatus/:id", async (req, res) => {
+router.post("/switchstatus/:userId/:id", async (req, res) => {
 
 	try {
-		const { id } = req.params;
+		const { userId, id } = req.params;
 		const vulnerability = await Vulnerability.findOne({ _id: id });
+		const user = await User.findOne({_id: userId})
 
-		if (!vulnerability)
-		  return res.status(400).send({ data: "No vulnerability found" });
 
-		if(vulnerability.status === "In Progress"){
-			vulnerability.status = "Patched"
-		} else {
-			vulnerability.status = "In Progress"
+		if(!user){
+			return res.status(400).send({ data: "No User" });
+		}
+		if (!vulnerability){
+			return res.status(400).send({ data: "No vulnerability found" });
 		}
 
+
+		if(vulnerability.status === "In Progress"){
+			user.riskScore += 2
+			vulnerability.status = "Patched"
+		} else {
+			user.riskScore -= 2
+			vulnerability.status = "In Progress"
+		}
+		if(user.riskScore<0){
+			user.riskScore = 0
+		} else if(user.riskScore>80){
+			user.riskScore = 80
+		}
+		await user.save()
 		let response = await vulnerability.save()
 
 		return res.status(200).json({ switchedStatus: response });
@@ -103,6 +117,35 @@ router.post("/switchstatus/:id", async (req, res) => {
 	} catch (err) {
 		console.log("Error in switching status of vulnerability", err.message);
 		res.status(500).send({ message: `Error in switching status of vulnerability${err.message}` });
+	}
+});
+
+router.post("/editscore", async (req, res) => {
+
+	try 
+	{
+		const { id, newScore } = req.body
+
+		const user = await User.findOne({_id: id})
+		
+		if(!user){
+			return res.status(400).send({ data: "No User" });
+		}
+	
+		user.riskScore = newScore
+		// if(vulnerability.status === "In Progress"){
+		// 	vulnerability.status = "Patched"
+		// } else {
+		// 	vulnerability.status = "In Progress"
+		// }
+
+		await user.save()
+
+		return res.status(200).json({ success: true  });
+
+	} catch (err) {
+		console.log("Error in Editing Score from ADMIN", err.message);
+		res.status(500).send({ message: `Error in Editing Score from ADMIN:  ${err.message}` });
 	}
 });
 

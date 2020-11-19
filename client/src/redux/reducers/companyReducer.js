@@ -5,10 +5,11 @@ import {
     VULNERABILITIES,
     ADDING_VUL,
     SWITCHING_STATUS,
+    EDITING_SCORE
 
 } from "../actions/actionTypes";
 
-const companyReducer = (state = {loading:"", success:"", error:"", vulnerabilities:"", isAdding: false, isSwitching: {status:false, id:""}}, action) => {
+const companyReducer = (state = {loading:"", success:"", error:"", vulnerabilities:"", isAdding: false, isSwitching: {status:false, id:""}, isEditing:false}, action) => {
 	switch (action.type) {
 		case FETCHING_COMPANY:
             console.log('wait loadingggg....')
@@ -24,7 +25,8 @@ const companyReducer = (state = {loading:"", success:"", error:"", vulnerabiliti
             return {...state, isAdding: !state.isAdding }
         case SWITCHING_STATUS:
             return {...state, isSwitching: {...state.isSwitching, status: !state.isSwitching.status, id:action.payload}}
-            
+        case EDITING_SCORE:
+            return {...state, isEditing: !state.isEditing}   
         default:
             return state;
 	}

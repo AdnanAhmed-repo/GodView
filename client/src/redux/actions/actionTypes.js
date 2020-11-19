@@ -11,3 +11,5 @@ export const LOGOUT = "LOGOUT";
 export const VULNERABILITIES = "VULNERABILITIES";
 export const ADDING_VUL = "ADDING_VUL";
 export const SWITCHING_STATUS = "SWITCHING_STATUS";
+export const EDITING_SCORE = "EDITING_SCORE";
+

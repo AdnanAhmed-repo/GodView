@@ -1,26 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchCompany, fetchVulnerabilities, addVulnerability, switchStatus } from "../../redux/actions/companyActions";
+import { fetchCompany, fetchVulnerabilities, addVulnerability, switchStatus, editScore } from "../../redux/actions/companyActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import "./CompanyDetails.css";
 
-const CompanyDetails = ({isAdding, isSwitching, ...props}) => {
+const CompanyDetails = ({isAdding, isSwitching, isEditing, ...props}) => {
 	const [vulForm, setVulForm] = useState({
 		vulName:"",
 		vulDesc:"",
 		vulType:""
 	})
 
+	const [edit, setEdit] = useState(false)
+	const [editInput, setEditInput] = useState("")
+
 	useEffect(() => {
 		let id = props.props.match.params.id;
 		props.fetchCompany(id);
 		props.fetchVulnerabilities({userId:id});
 
-	}, [isAdding, isSwitching]);
+	}, [isAdding, isSwitching, isEditing]);
 
 	const handleVulForm=(e)=>{
 		setVulForm({...vulForm, [e.target.name]: e.target.value})
+	}
+	
+	const handleEditClick=()=>{
+		setEditInput(props.company.riskScore)
+		setEdit(true)
+	}
+
+	const handleSaveClick=()=>{
+		let id = props.props.match.params.id;
+		if(Number(editInput)>=0&&Number(editInput)<=100){
+			props.editScore({id, newScore: editInput})
+			setEdit(false)
+		} else {
+			alert('Value should be in range 0-100')
+		}
+		
 	}
 
 	const handleSubmit=()=>{
@@ -33,7 +52,8 @@ const CompanyDetails = ({isAdding, isSwitching, ...props}) => {
 
 	const handleSwitch=(id)=>{
 		console.log("==================",isSwitching)
-		props.switchStatus(id)
+		let userId = props.props.match.params.id;
+		props.switchStatus(id, userId)
 	}
 
 	return (
@@ -55,8 +75,10 @@ const CompanyDetails = ({isAdding, isSwitching, ...props}) => {
 									</p>
 								</div>
 								<div className="company_score">
-									<h2>Risk Score: {props.company.riskScore}</h2>
-									<button>Edit Score</button>
+									<h2>Risk Score: {edit?<input onChange={(e)=>setEditInput(e.target.value)} value={editInput} />:(isEditing||props.loading||isSwitching.status)?<CircularProgress style={{color: "black"}} thickness={10} size={12} color="secondary" />:props.company.riskScore}</h2>
+									{edit?<button onClick={handleSaveClick}>Save</button>:<button onClick={handleEditClick}>Edit Score</button>}
+									
+									
 								</div>
 								<div className="header_buttons">
 									<button className="ban">Ban User</button>
@@ -135,7 +157,8 @@ const mapStateToProps = (state) => {
 		error: state.company.error,
 		vulnerabilities: state.company.vulnerabilities,
 		isAdding: state.company.isAdding,
-		isSwitching: state.company.isSwitching
+		isSwitching: state.company.isSwitching,
+		isEditing: state.company.isEditing
 	};
 };
 
@@ -144,7 +167,8 @@ const mapDispatchToProps = (dispatch) => {
 		fetchCompany: (id) => dispatch(fetchCompany(id)),
 		fetchVulnerabilities: (id) => dispatch(fetchVulnerabilities(id)),
 		addVulnerability: (data)=> dispatch(addVulnerability(data)),
-		switchStatus: (id)=>dispatch(switchStatus(id))
+		switchStatus: (id, userId)=>dispatch(switchStatus(id, userId)),
+		editScore: (userId) => dispatch(editScore(userId))
 	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CompanyDetails);

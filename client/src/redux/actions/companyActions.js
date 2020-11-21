@@ -31,7 +31,7 @@ const fail = (err) => {
 	};
 };
 
-export const fetchCompany = (id) => {
+export const fetchCompany = (id, history) => {
     return(dispatch)=>{
     dispatch(fetching())
     axios
@@ -39,10 +39,14 @@ export const fetchCompany = (id) => {
         .then((response) => {
             const user = response.data
             console.log('ACTION RAN---', user)
+		console.log("PROPS---", history)
+
             dispatch(success(user));
         }).catch(err=>{
             console.log("errror in user profile", err)
             dispatch(fail(err));
+            history.push('/admin-dashboard')
+
         });
     }
 }
